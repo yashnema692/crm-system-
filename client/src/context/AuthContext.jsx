@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         const { data } = await axios.post('https://crm-system-njj1.onrender.com/api/auth/login', { email, password });
+        
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
     };
