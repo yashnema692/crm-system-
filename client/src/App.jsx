@@ -6,20 +6,20 @@ import ProjectsDashboard from './pages/ProjectsDashboard';
 import AuditLogPage from './pages/AuditLogPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AppNavbar from './components/Navbar';
-import { useAuth } from './context/AuthContext'; // Correctly import useAuth
+import { useAuth } from './context/AuthContext';
 
 function App() {
-  const { user, loading } = useAuth(); // Get the new loading state
+  const { user, loading } = useAuth();
 
-  // If we are still checking for a user, show a loading message
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Once loading is false, render the app
+  // The main app structure is now wrapped in a layout div
   return (
-    <>
+    <div className="app-layout">
       {user && <AppNavbar />}
+      
       <main className="main-content">
         <div className="container">
           <Routes>
@@ -31,7 +31,14 @@ function App() {
           </Routes>
         </div>
       </main>
-    </>
+
+      {/* Footer with your name mark */}
+      <footer className="app-footer">
+        <div className="container">
+          &copy; {new Date().getFullYear()} - Project CRM managed by Yash Nema.
+        </div>
+      </footer>
+    </div>
   );
 }
 

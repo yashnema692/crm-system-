@@ -208,3 +208,29 @@ h1, h2, h3 { color: var(--color-primary); }
   max-height: 300px;
   overflow-y: auto;
 }
+
+
+/* ... (keep all existing styles) ... */
+
+/* ==========================================================================
+   4. Layout & Footer
+   ========================================================================== */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1; /* This makes the main content take up available space */
+}
+
+.app-footer {
+  padding: 1.5rem 0;
+  text-align: center;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-top: auto; /* Pushes the footer to the bottom */
+}

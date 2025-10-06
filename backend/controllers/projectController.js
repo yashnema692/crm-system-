@@ -6,15 +6,46 @@ const createAuditLog = async (projectId, userId, action, diff = {}) => {
     await AuditLog.create({ projectId, userId, action, diff });
 };
 
-// GET /api/projects - Get all projects
+
+
+// GET /api/projects - Now with Search, Filtering, and Pagination
 export const getProjects = async (req, res) => {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Build the query object based on request queries
+    const query = {};
+    if (req.query.status) {
+        query.status = req.query.status;
+    }
+    if (req.query.search) {
+        const searchRegex = new RegExp(req.query.search, 'i'); // Case-insensitive
+        query.$or = [{ title: searchRegex }, { client: searchRegex }];
+    }
+
     try {
-        const projects = await Project.find({}).populate('ownerId', 'email').sort({ updatedAt: -1 });
-        res.json(projects);
+        // Get the total count of documents that match the filter
+        const totalCount = await Project.countDocuments(query);
+
+        // Get the projects for the current page, applying the query
+        const projects = await Project.find(query)
+            .populate('ownerId', 'email')
+            .sort({ updatedAt: -1 })
+            .limit(limit)
+            .skip(skip);
+
+        res.json({
+            projects,
+            page,
+            totalPages: Math.ceil(totalCount / limit),
+        });
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
+
 
 // POST /api/projects - Create a project
 export const createProject = async (req, res) => {
@@ -70,3 +101,5 @@ export const deleteProject = async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 };
+
+
