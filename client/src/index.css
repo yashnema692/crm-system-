@@ -1,0 +1,146 @@
+/* 1. CSS Variables (Custom Properties) for a Formal Theme */
+:root {
+  /* Official Color Palette */
+  --color-primary: #003366; /* Deep Navy Blue */
+  --color-accent: #FF9933; /* Saffron/Orange for emphasis */
+  --color-background: #f8f9fa; /* Light Gray */
+  --color-surface: #ffffff; /* White for cards and forms */
+  --color-text-primary: #212529; /* Almost Black */
+  --color-text-secondary: #6c757d; /* Medium Gray */
+  --color-border: #dee2e6; /* Light Gray Border */
+  --color-success: #198754; /* Green for success messages */
+  --color-danger: #dc3545; /* Red for errors */
+
+  /* Typography */
+  --font-family-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+
+  /* Spacing & Borders */
+  --border-radius: 4px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Global Styles & Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+}
+
+h1, h2, h3 {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* 3. Component Styles */
+
+/* Buttons */
+button {
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.6em 1.2em;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+button:hover {
+  background-color: #002244; /* Darker Blue */
+  border-color: #002244;
+}
+button:focus, button:focus-visible {
+  outline: 3px solid #6495ED; /* A clear focus ring for accessibility */
+  outline-offset: 2px;
+}
+
+/* Forms */
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: left;
+}
+.form-container h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 0.8em;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+input:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.25);
+}
+
+/* Error Messages */
+.error {
+  color: var(--color-danger);
+  font-weight: 500;
+}
+
+/* Dashboard */
+.dashboard-container {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: left;
+  box-shadow: var(--box-shadow);
+}
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--color-primary);
+}
+.dashboard-header h2 {
+  margin: 0;
+}
