@@ -5,39 +5,46 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    // 1. Add a new loading state
+    const [loading, setLoading] = useState(true);
 
-    // Check for user in localStorage on initial load
     useEffect(() => {
-        const storedUser = localStorage.getItem('userInfo');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
+        try {
+            const storedUser = localStorage.getItem('userInfo');
+            if (storedUser) {
+                setUser(JSON.parse(storedUser));
+            }
+        } catch (error) {
+            console.error("Failed to parse user info from localStorage", error);
+        } finally {
+            // 2. Set loading to false after we've checked localStorage
+            setLoading(false);
         }
     }, []);
 
-    // Login handler
+    // ... (keep the login, signup, and logout functions the same)
     const login = async (email, password) => {
         const { data } = await axios.post('/api/auth/login', { email, password });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
-        return data; // Return user data to handle redirect
+        return data;
     };
     
-    // Signup handler
     const signup = async (email, password, role) => {
         const { data } = await axios.post('/api/auth/signup', { email, password, role });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
-        return data; // Return user data to handle redirect
+        return data;
     };
 
-    // Logout handler
     const logout = () => {
         localStorage.removeItem('userInfo');
         setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout }}>
+        // 3. Pass the loading state to the rest of the app
+        <AuthContext.Provider value={{ user, loading, login, signup, logout }}>
             {children}
         </AuthContext.Provider>
     );

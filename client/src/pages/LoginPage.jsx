@@ -13,28 +13,35 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
         try {
-            const userData = await login(email, password);
-            // Redirect based on role
-            if (userData.role === 'ADMIN') {
-                navigate('/admin-dashboard');
-            } else {
-                navigate('/user-dashboard');
-            }
+            await login(email, password);
+            navigate('/dashboard');
         } catch (err) {
-            setError('Failed to log in. Please check your credentials.');
+            setError('Failed to log in. Please check credentials.');
         }
     };
 
     return (
-        <div className="form-container">
-            <h2>Login</h2>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit} style={{ display: 'contents' }}>
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+        <div className="card">
+            <div className="card-header">
+                <h2>Login</h2>
+            </div>
+            <div className="card-body">
+                {error && <p className="error">{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="email">Email Address</label>
+                        <input className="form-control" type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="password">Password</label>
+                        <input className="form-control" type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    </div>
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Login</button>
+                </form>
+                <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                </p>
+            </div>
         </div>
     );
 };
