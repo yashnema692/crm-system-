@@ -20,7 +20,13 @@ const connectDB = async () => {
 connectDB();
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+// Configure CORS to allow requests only from your deployed frontend
+const corsOptions = {
+    origin: 'https://crmyashnema1.netlify.app',
+    optionsSuccessStatus: 200 // For legacy browser support
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // API Routes
