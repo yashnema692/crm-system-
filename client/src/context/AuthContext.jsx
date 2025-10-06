@@ -19,13 +19,13 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        const { data } = await axios.post('/api/auth/login', { email, password });
+        const { data } = await axios.post('https://crm-system-njj1.onrender.com/api/auth/login', { email, password });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
     };
     
     const signup = async (email, password, role) => {
-        const { data } = await axios.post('/api/auth/signup', { email, password, role });
+        const { data } = await axios.post('https://crm-system-njj1.onrender.com/api/auth/signup', { email, password, role });
         localStorage.setItem('userInfo', JSON.stringify(data));
         setUser(data);
     };

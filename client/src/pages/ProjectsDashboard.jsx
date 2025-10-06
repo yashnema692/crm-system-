@@ -28,7 +28,7 @@ const ProjectsDashboard = () => {
         setLoading(true);
         try {
             const config = { headers: { Authorization: `Bearer ${user.token}` }, params: { page, search: debouncedSearch, status: statusFilter } };
-            const { data } = await axios.get('/api/projects', config);
+            const { data } = await axios.get('https://crm-system-njj1.onrender.com/api/projects', config);
             setProjects(data.projects);
             setPage(data.page);
             setTotalPages(data.totalPages);
@@ -56,7 +56,7 @@ const ProjectsDashboard = () => {
         if (window.confirm('Are you sure you want to delete this project?')) {
             try {
                 const config = { headers: { Authorization: `Bearer ${user.token}` } };
-                await axios.delete(`/api/projects/${id}`, config);
+                await axios.delete(`https://crm-system-njj1.onrender.com/api/projects/${id}`, config);
                 fetchProjects();
             } catch (err) { setError('Failed to delete project.'); }
         }
