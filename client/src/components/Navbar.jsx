@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -12,24 +13,23 @@ const AppNavbar = () => {
     };
 
     return (
-        <header className="app-header">
-            <div className="container header-content">
-                <Link to="/dashboard" className="header-brand">Project Management CRM</Link>
-                {user && (
-                    <div className="header-user-info">
-                        <nav className="header-nav">
-                            <Link to="/dashboard">Projects</Link>
-                            {user.role === 'ADMIN' && (
-                                <Link to="/audit-log">Audit Log</Link>
-                            )}
-                        </nav>
-                        <span>{user.email}</span>
-                        <button onClick={handleLogout} className="btn btn-primary">Logout</button>
-                    </div>
-                )}
-            </div>
-        </header>
+        <Navbar bg="light" variant="light" expand="lg" className="border-bottom">
+            <Container>
+                <Navbar.Brand as={Link} to="/dashboard">Project CRM</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link as={Link} to="/dashboard">Projects</Nav.Link>
+                        {user?.role === 'ADMIN' && <Nav.Link as={Link} to="/audit-log">Audit Log</Nav.Link>}
+                    </Nav>
+                    <Nav>
+                        <Navbar.Text className="me-3">Signed in as: <strong>{user?.email}</strong></Navbar.Text>
+                        <Button variant="outline-secondary" size="sm" onClick={handleLogout}>Logout</Button>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
-
 export default AppNavbar;
+

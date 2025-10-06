@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { Card, Form, Button, Alert } from 'react-bootstrap';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -21,28 +22,18 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <h2>Login</h2>
-            </div>
-            <div className="card-body">
-                {error && <p className="error">{error}</p>}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="email">Email Address</label>
-                        <input className="form-control" type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="password">Password</label>
-                        <input className="form-control" type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                    </div>
-                    <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Login</button>
-                </form>
-                <p style={{ textAlign: 'center', marginTop: '1rem' }}>
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
-                </p>
-            </div>
-        </div>
+        <Card className="mx-auto mt-5" style={{ maxWidth: '450px' }}>
+            <Card.Header as="h4">User Login</Card.Header>
+            <Card.Body>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3"><Form.Label>Email Address</Form.Label><Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></Form.Group>
+                    <Form.Group className="mb-3"><Form.Label>Password</Form.Label><Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></Form.Group>
+                    <Button type="submit" className="w-100">Login</Button>
+                </Form>
+                <div className="text-center mt-3">Don't have an account? <Link to="/signup">Sign Up</Link></div>
+            </Card.Body>
+        </Card>
     );
 };
 

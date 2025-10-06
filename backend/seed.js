@@ -20,13 +20,13 @@ const seedDatabase = async () => {
         // Create Users
         const adminUser = await User.create({
             email: 'admin@demo.com',
-            password: 'Admin@123', // Will be hashed by pre-save hook
+            password: 'Admin@123',
             role: 'ADMIN',
         });
 
         const memberUser = await User.create({
             email: 'member@demo.com',
-            password: 'Member@123', // Will be hashed by pre-save hook
+            password: 'Member@123',
             role: 'MEMBER',
         });
         console.log('Created admin and member users.');
@@ -39,12 +39,10 @@ const seedDatabase = async () => {
             { title: 'Cloud Migration', client: 'Server Co', budget: 25000, status: 'ON_HOLD', ownerId: memberUser._id },
             { title: 'E-commerce Platform', client: 'Shopify Plus', budget: 30000, status: 'IN_PROGRESS', ownerId: adminUser._id },
             { title: 'Brand Identity', client: 'Creative Inc', budget: 3500, status: 'DONE', ownerId: memberUser._id },
-            { title: 'API Integration', client: 'Connectify', budget: 8000, status: 'LEAD', ownerId: adminUser._id },
-            { title: 'SEO Optimization', client: 'Rank High', budget: 4000, status: 'IN_PROGRESS', ownerId: memberUser._id },
         ];
         
         await Project.insertMany(projectsData);
-        console.log('Seeded 8 sample projects.');
+        console.log('Seeded sample projects.');
         
         console.log('Database seeding completed successfully!');
         process.exit();

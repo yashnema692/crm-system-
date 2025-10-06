@@ -11,16 +11,12 @@ import { useAuth } from './context/AuthContext';
 function App() {
   const { user, loading } = useAuth();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
-  // The main app structure is now wrapped in a layout div
   return (
     <div className="app-layout">
       {user && <AppNavbar />}
-      
-      <main className="main-content">
+      <main className="main-content py-4">
         <div className="container">
           <Routes>
             <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
@@ -31,11 +27,9 @@ function App() {
           </Routes>
         </div>
       </main>
-
-      {/* Footer with your name mark */}
       <footer className="app-footer">
         <div className="container">
-          &copy; {new Date().getFullYear()} - Project CRM managed by Yash Nema 9754390326.
+          &copy; {new Date().getFullYear()} - Project CRM managed by Yash Nema.
         </div>
       </footer>
     </div>

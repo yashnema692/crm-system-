@@ -3,53 +3,28 @@ import { Table, Button, Badge } from 'react-bootstrap';
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from '../context/AuthContext';
 
-const statusColors = {
-    LEAD: 'primary',
-    IN_PROGRESS: 'warning',
-    ON_HOLD: 'secondary',
-    DONE: 'success',
-};
+const statusColors = { LEAD: 'primary', IN_PROGRESS: 'warning', ON_HOLD: 'secondary', DONE: 'success' };
 
 const ProjectTable = ({ projects, onEdit, onDelete }) => {
     const { user } = useAuth();
-
     return (
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Client</th>
-                    <th>Budget</th>
-                    <th>Status</th>
-                    <th>Owner</th>
-                    <th>Last Updated</th>
-                    <th>Actions</th>
+                    <th>Title</th><th>Client</th><th>Budget</th><th>Status</th><th>Owner</th><th>Last Updated</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {projects.map((project) => (
                     <tr key={project._id}>
-                        <td>{project.title}</td>
-                        <td>{project.client}</td>
-                        <td>${project.budget.toLocaleString()}</td>
+                        <td>{project.title}</td><td>{project.client}</td><td>${project.budget.toLocaleString()}</td>
+                        <td><Badge bg={statusColors[project.status]}>{project.status.replace('_', ' ')}</Badge></td>
+                        <td>{project.ownerId.email}</td><td>{formatDistanceToNow(new Date(project.updatedAt), { addSuffix: true })}</td>
                         <td>
-                            <Badge bg={statusColors[project.status]}>
-                                {project.status.replace('_', ' ')}
-                            </Badge>
-                        </td>
-                        <td>{project.ownerId.email}</td>
-                        <td>{formatDistanceToNow(new Date(project.updatedAt), { addSuffix: true })}</td>
-                        <td>
-                            {(user.role === 'ADMIN' || user._id === project.ownerId._id) && (
-                                <Button variant="outline-primary" size="sm" onClick={() => onEdit(project)}>
-                                    Edit
-                                </Button>
-                            )}
-                            {user.role === 'ADMIN' && (
-                                <Button variant="outline-danger" size="sm" className="ms-2" onClick={() => onDelete(project._id)}>
-                                    Delete
-                                </Button>
-                            )}
+                            {(user.role === 'ADMIN' || user._id === project.ownerId._id) && 
+                                <Button variant="outline-primary" size="sm" onClick={() => onEdit(project)}>Edit</Button>}
+                            {user.role === 'ADMIN' && 
+                                <Button variant="outline-danger" size="sm" className="ms-2" onClick={() => onDelete(project._id)}>Delete</Button>}
                         </td>
                     </tr>
                 ))}
