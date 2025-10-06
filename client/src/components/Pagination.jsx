@@ -3,7 +3,7 @@ import { Pagination } from 'react-bootstrap';
 
 const PaginationControls = ({ page, totalPages, onPageChange }) => {
     if (totalPages <= 1) {
-        return null; // Don't show pagination if there's only one page
+        return null; // Don't show controls if there's only one page
     }
 
     const handlePageClick = (newPage) => {
@@ -17,7 +17,6 @@ const PaginationControls = ({ page, totalPages, onPageChange }) => {
             <Pagination.First onClick={() => handlePageClick(1)} disabled={page === 1} />
             <Pagination.Prev onClick={() => handlePageClick(page - 1)} disabled={page === 1} />
             
-            {/* Display current page info */}
             <Pagination.Item active>{`Page ${page} of ${totalPages}`}</Pagination.Item>
 
             <Pagination.Next onClick={() => handlePageClick(page + 1)} disabled={page === totalPages} />

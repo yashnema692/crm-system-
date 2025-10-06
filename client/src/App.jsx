@@ -35,7 +35,7 @@ function App() {
       {/* Footer with your name mark */}
       <footer className="app-footer">
         <div className="container">
-          &copy; {new Date().getFullYear()} - Project CRM managed by Yash Nema.
+          &copy; {new Date().getFullYear()} - Project CRM managed by Yash Nema 9754390326.
         </div>
       </footer>
     </div>
