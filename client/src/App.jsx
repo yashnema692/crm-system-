@@ -24,6 +24,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/dashboard" element={<ProtectedRoute><ProjectsDashboard /></ProtectedRoute>} />
             <Route path="/audit-log" element={<ProtectedRoute adminOnly={true}><AuditLogPage /></ProtectedRoute>} />
+            
           </Routes>
         </div>
       </main>
