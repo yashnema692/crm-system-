@@ -14,7 +14,7 @@ const AuditLogPage = () => {
         const fetchLogs = async () => {
             try {
                 const config = { headers: { Authorization: `Bearer ${user.token}` } };
-                const { data } = await axios.get('https://crm-system-njj1.onrender.com/api/audit', config);
+                const { data } = await axios.get('https://crm-system-16lm.onrender.com/api/audit', config);
                 setLogs(data);
             } catch (err) { setError('Failed to fetch audit logs.'); } 
             finally { setLoading(false); }
